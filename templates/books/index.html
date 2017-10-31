@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/books/index.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'js/books/index.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+
+        <ul id="nav-items" class="nav nav-pills">
+            <li class="active"><a href="#books" data-toggle="tab">Books <span
+                    class="badge">{{ books_length }}</span></a></li>
+            <li><a href="#users" data-toggle="tab">Users <span class="badge">{{ users|length }}</span></a></li>
+        </ul>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-3">
+                <div class="list-group">
+                    <a href="{% url 'books:index' %}"
+                       class="list-group-item {% if not category_slug %} active {% endif %}">All</a>
+                    {% for category in categories %}
+                        <a href="{% url 'books:search' category.slug search %}"
+                           class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <div class="tab-content">
+                    <div id="books" class="tab-pane active">
+
+
+                        <div class="row">
+                            {% include 'components/book_item.html' %}
+                        </div>
+
+                        {% if books %}
+                            <div class="row">
+                                {% include 'components/pagination.html' %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div id="users" class="tab-pane ">
+
+                        {% if users %}
+
+                            {% for user in users %}
+                                {% include 'components/user.html' %}
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="indication-icon">
+                                <i class="ion-person-stalker" aria-hidden="true"></i>
+                                <h3>No results for users</h3>
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

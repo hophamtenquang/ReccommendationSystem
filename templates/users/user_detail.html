@@ -1,0 +1,155 @@
+{% extends "books/index.html" %}
+{% load static %}
+
+{% block title %}User: {{ object.username }}{% endblock %}
+
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/users/user_detail.css' %}">
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static "js/users/user_detail.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <!-- Action buttons -->
+        <div class="row">
+
+            {# User profile unfos #}
+            <div class="col-xs-12 col-sm-3">
+                {#         Profile image#}
+                <img id="profile-image" src="{{ object.image.url }}" alt="">
+
+
+                {# User first and last name #}
+                {% if object.name %}
+                    <h3>{{ object.name }}</h3>
+                {% endif %}
+
+
+                {# Username #}
+                <h4 id="username">{{ object.username }}</h4>
+
+
+                <p id="user-bio">{{ object.bio }}</p>
+
+
+                {# If the user is logged in #}
+                {% if request.user.is_authenticated %}
+
+                    {# If the requested user is not the logged in user, show the follow un unfollow buttons #}
+                    {% if object != request.user %}
+
+                        <div class="button-wrapper">
+                            {% if is_following %}
+                                <button id="unfollow-btn" class="btn btn-default btn-follow">Unfollow</button>
+                            {% else %}
+                                {# Follow btn #}
+                                <button id="follow-btn" class="btn btn-default btn-follow">Follow</button>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+
+            </div>
+
+            {# Books and followers #}
+            <div class="col-xs-12 col-sm-9">
+
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#books" data-toggle="tab">Books <span
+                            class="badge">{{ books|length }}</span></a></li>
+                    <li><a href="#bookmarks" data-toggle="tab">Bookmarks <span
+                            class="badge">{{ bookmarks|length }}</span></a></li>
+                    <li><a href="#followers" data-toggle="tab">Followers <span
+                            class="badge">{{ followers|length }}</span></a></li>
+                    <li><a href="#following" data-toggle="tab">Following <span
+                            class="badge">{{ following|length }}</span></a></li>
+                </ul>
+
+
+                <div class="tab-content">
+                    <div id="books" class="tab-pane active">
+                        {% if books %}
+                            {% for book in books %}
+
+                                {% include 'components/book_profile_item.html' %}
+                            {% endfor %}
+
+                        {% else %}
+                            <div class="indication-icon">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <h3>You haven't start reading any book yet</h3>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    <div id="bookmarks" class="tab-pane">
+                        {% if bookmarks %}
+                            {% for book in bookmarks %}
+
+                                {% include 'components/book_profile_item.html' %}
+                            {% endfor %}
+
+                        {% else %}
+                            <div class="indication-icon">
+                                <i class="fa fa-bookmark" aria-hidden="true"></i>
+                                <h3>You haven't bookmarked any book yet</h3>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <div id="followers" class="tab-pane">
+                        <div id="users" class="tab-pane ">
+                            {% if followers %}
+                                {% for user in followers %}
+                                    {% include 'components/user.html' %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="indication-icon">
+                                    <i class="ion-person-stalker" aria-hidden="true"></i>
+                                    <h3>You have no followers right now</h3>
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+
+
+                    <div id="following" class="tab-pane">
+                        <div id="users" class="tab-pane ">
+                            {% if following %}
+                                {% for user in following %}
+                                    {% include 'components/user.html' %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="indication-icon">
+                                    <i class="ion-person-stalker" aria-hidden="true"></i>
+                                    <h3>You haven't followed anyone yet</h3>
+                                </div>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock content %}
+

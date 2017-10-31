@@ -1,0 +1,124 @@
+{% load staticfiles i18n books %}
+<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}"> <i class="glyphicon glyphicon-home"></i> BookLib</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            {# Search Item #}
+            <form class="navbar-form navbar-left" method="post" action="{% url 'books:index' %}" autocomplete="off">
+                {% csrf_token %}
+                <div id="search-bar-container">
+                    <div class="input-group" id="search-bar">
+                        <i class="ion-search"></i>
+                        <input id="search-bar-input" type="text" class="form-control" class="dropdown-toggle"
+                               aria-haspopup="true" aria-expanded="false" placeholder="Search by Title, Author, Tags..."
+                               name="search" {% if search %}
+                               value="{{ search }}"
+                        {% endif %}>
+                        <ul id="search-results" class="dropdown-menu">
+
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <a class="navbar-brand" href="/books"><i class="glyphicon glyphicon-book"></i> Books</a>
+
+
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'suggestion' %}"><i class="ion-ios-paper-outline"></i>Feed</a></li>
+                    <li>
+                        <a type="button" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false"><span
+                                id="notif-counter">{{ request.user.history.notifications|notViewedCounter }}</span> <i
+                                class="ion-android-notifications-none"></i>
+                        </a>
+                        <ul id="notifications" class="dropdown-menu">
+
+                            {% if request.user.history.notifications.all|length > 0 %}
+                                {% for noti in request.user.history.notifications.all %}
+                                    <li id="{{ noti.id }}" class="{% if noti.viewed %}
+                                    noti-viewed
+                                {% endif %} notification">
+                                        <div class="media" onclick="window.location.href = '{{ noti.link }}'">
+                                            <div class="media-left">
+                                                <a href="{{ noti.link }}">
+                                                    <img class="media-object img-circle"
+                                                         src="{{ noti.sender.image.url }}"
+                                                         alt="{{ noti.sender.usernme }}" height="42">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a class="q"
+                                                   href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                            {% else %}
+
+                                <div id="no-noti">
+                                    <i class="ion-android-notifications-none"></i>
+                                    <p>No notifications</p>
+                                </div>
+
+
+                            {% endif %}
+
+
+                        </ul>
+                    </li>
+
+                    <li id="user-nav-img" class="nav-item">
+                        <div class="btn-group">
+                            <a type="button" class="dropdown-toggle" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ request.user.image.url }}" class="img-rounded" height="28px">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'users:detail' request.user.username %}"><i
+                                        class="ion-person"></i>{% trans "Profile" %}</a></li>
+                                <li><a href="{% url 'users:update' %}"><i
+                                        class="ion-ios-gear"></i> {% trans "Settings" %}</a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="nav-link" href="{% url 'about' %}"><i
+                                        class="ion-ios-help-outline"></i> {% trans "About" %}</a></li>
+                                <li><a class="nav-link" href="{% url 'account_logout' %}"> <i
+                                        class="ion-reply"></i> {% trans "Sign Out" %}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a id="sign-up-link" class="nav-link"
+                           href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="log-in-link" class="nav-link"
+                           href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

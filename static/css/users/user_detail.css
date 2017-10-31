@@ -1,0 +1,43 @@
+body {
+  background-color: white;
+}
+
+.book p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#profile-image {
+  width: 100%;
+}
+
+.btn-follow {
+  width: 100%;
+  background-color: #f4f6f8 !important;
+}
+
+.project-name a {
+  font-size: 20px;
+  text-decoration: none;
+  color: rgba(0,0,0,.8);
+}
+
+.project-name a:hover {
+  color: #00ab6b;
+}
+
+.author {
+  color: #00ab6b;
+}
+
+#username,
+#user-bio,
+.project-description {
+  color: #6a7785;
+}
+
+#username {
+  font-weight: 400;
+}
+

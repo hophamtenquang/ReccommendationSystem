@@ -1,0 +1,131 @@
+body {
+  background-color: #fafafa;
+}
+
+.m-b-1 {
+  margin-bottom: 0 !important;
+}
+
+#book-detail-infos {
+  padding: 24px !important;
+  font-size: 14px;
+}
+
+.book-infos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+  max-width: 80rem;
+}
+
+.book-infos > li > span {
+  font-weight: 700;
+}
+
+.share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+.share > span {
+  font-weight: 800;
+}
+
+.share > a > i {
+  margin-left: 8px;
+}
+
+.info-wrapper {
+  padding-bottom: 18px;
+}
+
+#image-wrapper {
+  text-align: center;
+}
+
+.tags {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.comments {
+  margin-top: 12px;
+}
+
+.comment {
+  margin-bottom: 8px !important;
+}
+
+.comment h3 {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: sub;
+}
+
+.comment img {
+  height: 36px;
+  margin-right: 8px;
+  border-radius: 200%;
+}
+
+.comment p {
+  margin-top: 8px;
+}
+
+.share > i {
+  color: #337ab7;
+  margin: 8px;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.rec-book-container {
+  overflow: auto;
+}
+
+.rec-book-container div {
+  width: 1245px;
+}
+
+.rec-book-name {
+  margin: 16px;
+}
+
+.rec-book {
+  display: inline;
+}
+
+.rec-book span {
+  display: inline-grid;
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+  transition: color 0.1s ease;
+}
+
+.rec-book span span {
+  max-width: 90px;
+  margin-left: 17px;
+}
+
+.rec-book span:hover {
+  color: #3b8bd1;
+}
+
+.rec-book-img {
+  height: 140px;
+  width: 88px;
+  margin: 16px;
+}
+
+.book-image {
+  width: 60%;
+}

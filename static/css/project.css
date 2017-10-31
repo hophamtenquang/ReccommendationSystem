@@ -1,0 +1,269 @@
+/* These styles are generated from project.scss. */
+
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6;
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+/* This is a fix for the bootstrap4 alpha release */
+@media (max-width: 47.9em) {
+  .navbar-nav .nav-item {
+    float: none;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .navbar-nav .nav-item + .nav-item {
+    margin-left: 0;
+  }
+
+  .nav.navbar-nav.pull-xs-right {
+    float: none !important;
+  }
+}
+
+/* Display django-debug-toolbar.
+   See https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742
+   and https://github.com/pydanny/cookiecutter-django/issues/317
+*/
+[hidden][style="display: block;"] {
+  display: block !important;
+}
+
+.main-content {
+  margin-top: 20px;
+}
+
+.navbar-default {
+  background-color: white;
+}
+
+#navbar {
+  box-shadow: 1px 0 2px grey;
+}
+
+.nav li a {
+  color: #337ab7;
+}
+
+.nav li a i {
+  font-size: 24px;
+  vertical-align: sub;
+  margin-right: 6px;
+}
+
+#user-nav-img {
+  margin-top: 12px;
+}
+
+#dj-message {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 0 !important;
+  z-index: 999;
+}
+
+.main-content {
+  margin-top: 110px;
+}
+
+#search-bar input {
+  width: 30vw;
+  border-radius: 50px;
+  padding-left: 35px;
+  background-color: #F4F4F4;
+  transition: width 0.2s ease, background 0.15s ease;
+}
+
+#search-results li a {
+  width: 30vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#search-bar input:focus, #search-bar input:visited, #search-bar input:active {
+  box-shadow: none !important;
+  background-color: white;
+}
+
+#search-bar i {
+  position: absolute;
+  z-index: 999;
+  top: 2px;
+  left: 12px;
+  font-size: 22px;
+}
+
+#notifications {
+  width: 400px;
+  max-height: 40vh;
+  overflow: auto;
+}
+
+#notifications li {
+  padding: 16px;
+  background-color: rgba(33, 150, 243, 0.04);
+  transition: background 0.2s ease;
+}
+
+#notifications li:hover {
+  background-color: rgba(33, 150, 243, 0.15) !important;
+}
+
+.noti-viewed {
+  background-color: white !important;
+}
+
+.media {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.navbar li {
+  cursor: hand;
+  cursor: pointer;
+}
+
+#notif-counter {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 8px;
+  left: 21px;
+  border: 1px solid red;
+  border-radius: 200%;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noti-sender {
+  font-weight: bold;
+}
+
+.navbar-brand i {
+  display: inline-block;
+  font-size: 26px;
+  vertical-align: sub;
+
+}
+
+#no-noti {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+}
+
+#no-noti i {
+  font-size: 60px;
+}
+
+#no-noti p {
+  font-size: 22px;
+}
+
+.blog-footer {
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+
+  position: inherit;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+}
+
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 3px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+
+a {
+  color: #00ab6b;
+  text-decoration: none;
+}
+
+
+/* Loading animation */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

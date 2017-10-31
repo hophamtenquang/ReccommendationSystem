@@ -1,0 +1,275 @@
+{% extends 'books/index.html' %}
+{% load static %}
+{% load crispy_forms_tags books %}
+
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'dep/photoswipe/dist/default-skin/default-skin.css' %}">
+    <link rel="stylesheet" href="{% static 'dep/photoswipe/dist/photoswipe.css' %}">
+    <link rel="stylesheet" href="{% static 'css/books/book_detail.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'dep/photoswipe/dist/photoswipe.js' %}"></script>
+    <script src="{% static 'dep/photoswipe/dist/photoswipe-ui-default.js' %}"></script>
+
+    <script>
+        const bookId = "{{ object.id }}";
+        let imagePath = "{{object.get_thulbnail}}";
+    </script>
+    <script src="{% static 'js/books/book_detail.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="thumbnail row info-wrapper">
+            <div id="image-wrapper" class="col-xs-12 col-sm-12 col-md-4">
+                {% if book.thumbnail_url %}
+                    <img class="book-image" src="{{ object.thumbnail_url }}"
+                         alt="{{ object.name }}"
+                         height="240">
+
+                {% else %}
+
+                    <img class="book-image" src="{{ object.thumbnail.url }}"
+                         alt="{{ object.name }}"
+                         height="240">
+
+                {% endif %}
+                <div class="share">
+                    <span>Share </span>
+                    <i id="facebook" class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                    <i id="twitter" class="fa fa-twitter fa-2x"></i>
+                    <i id="linkedin" class="fa fa-linkedin fa-2x"></i>
+                </div>
+                <div class="actions">
+                    <!-- <a href="{% url 'books:read' object.slug %}" class="btn btn-primary"><i class="ion-ios-book"></i>
+                        Start Reading</a> -->
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'books:update' book %}" class="btn btn-primary"><i class="ion-edit"></i> Update</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 ">
+                <div>
+                    <h4 class="book-title">{{ object.name }}</h4>
+                    <p class="book-author">By <span>{{ object.author }}</span></p>
+                    <div class="tags">
+                        {% for tag in object.tags.all %}
+                            <span class="badge badge-pill badge-default">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <p class="card-text">{{ object.description }}</p>
+                </div>
+                <hr>
+                <div class="book-actions">
+
+                    {% if request.user.is_authenticated %}
+                            {% if book|isliked:request.user %}
+                                <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                            {% else %}
+                                <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                            {% endif %}
+                        {% else %}
+                                <i class="fa fa-heart-o like" aria-hidden="true" onclick="goToLogin()"></i>
+                        {% endif %}
+
+                    <span id="likes-count-{{ object.id }}">{{ object.likes.all|length }}</span>
+
+
+                    <i class="ion-chatbox"></i>
+                    <span id="likes-count-{{ object.id }}">{{ object.comments.all|length }}</span>
+
+                    {% if request.user.is_authenticated %}
+                            {% if book|isBookmarked:request.user %}
+                                <i id="unbookmark-{{ book.id }}" class="fa fa-bookmark unbookmark"
+                                   aria-hidden="true"></i>
+                            {% else %}
+                                <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+                            {% endif %}
+
+                        {% else %}
+                            <i class="fa fa-bookmark-o bookmark" aria-hidden="true"
+                               onclick="goToLogin()"></i>
+                        {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="thumbnail row">
+            <h4 class="rec-book-name">You may also like this books</h4>
+            <div class="rec-book-container">
+                <div>
+                    {% for book in rec_books %}
+                        <div class="rec-book">
+                        <span onclick="window.location.href = '{{ book.get_absolute_url }}'">
+                            <img class="rec-book-img" src="{{ book.get_thulbnail }}" alt="">
+                            <span>{{ book.name|truncatechars:40 }}</span>
+                        </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="book-detail-infos" class="thumbnail row">
+            <h4>Book Details</h4>
+            <ul class="book-infos">
+                <li><span>Publication date:</span> {{ object.publication_date }}</li>
+                <li><span>Publisher:</span> {{ object.publisher }}</li>
+                <li><span>Publication City/Country:</span> {{ object.publication_place }}</li>
+                <li><span>Language:</span> {{ object.language }}</li>
+                <li><span>ISBN10:</span> {{ object.isbn10 }}</li>
+                <li><span>ISBN13:</span> {{ object.isbn13 }}</li>
+            </ul>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <div class="comments-container">
+                    <button id="show-comment" class="btn btn-primary"><i class="fa fa-plus"></i> Add comment</button>
+                    <form id="comment-form" action="{% url 'books:add_comment' %}" method="post" role="form">
+
+                        {% csrf_token %}
+
+                        <input type="hidden" name="book_id" value="{{ book.id }}">
+
+
+                        {{ form|crispy }}
+                        <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="cancel" class="btn btn-default">Cancel</button>
+                    </form>
+                    <div class="comments list-group">
+                        {% if request.user.is_superuser %}
+                            {% for comment in book.comments.all %}
+                                <div id="{{ comment.id }}" class="comment-container row">
+                                    {% if request.user.is_superuser %}
+                                        <div class="emotion col-xs-1">
+                                            {% if comment|isPositive %}
+                                                <i class="pos fa fa-smile-o"></i>
+                                            {% elif comment|isNegative %}
+                                                <i class="neg fa fa-frown-o"></i>
+                                            {% elif comment|isNeutral %}
+                                                <i class="neutral fa fa-meh-o"></i>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="comment list-group-item col-xs-11">
+                                        <img src="{{ comment.user.image.url }}" alt="">
+                                        <h3>
+                                            <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
+                                        </h3>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% for comment in book.comments.all %}
+                                <div id="{{ comment.id }}" class="comment-container">
+                                    {% if request.user.is_superuser %}
+                                        <div class="emotion">
+                                            {% if comment|isPositive %}
+                                                <i class="pos fa fa-smile-o"></i>
+                                            {% elif comment|isNegative %}
+                                                <i class="neg fa fa-frown-o"></i>
+                                            {% elif comment|isNeutral %}
+                                                <i class="neutral fa fa-meh-o"></i>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="comment list-group-item">
+                                        <img src="{{ comment.user.image.url }}" alt="">
+                                        <h3>
+                                            <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
+                                        </h3>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <div class="pswp__container">
+            <!-- don't modify these 3 pswp__item elements, data is added later on -->
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Cover -->
+
+    <div class="cover-page">
+        <h1 class="featurette-heading">Start Reading and Change the World</h1>
+        <p class="lead">Disover thousdans of books</p>
+        <div class="start-container">
+            <a class="start" href="{% url 'books:index' %}">Start Reading</a>
+        </div>
+    </div>
+
+    <!-- End Cover -->
+
+    <!-- START THE FEATURETTES -->
+
+    <!-- <div class="container">
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Read book <span
+                        class="text-muted">Online</span></h2>
+                <p class="lead">Reading thousands of books was never been easy then now.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-1.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 col-md-push-5">
+                <h2 class="featurette-heading">Share book with <span
+                        class="text-muted">your freinds</span>
+                </h2>
+                <p class="lead">BookLib is an open social platform where you can connect with other peoples.</p>
+            </div>
+            <div class="col-md-5 col-md-pull-7">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-2.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac
+                    cursus
+                    commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-3.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div> -->
+
+    <!-- /END THE FEATURETTES -->
+
+{% endblock %}

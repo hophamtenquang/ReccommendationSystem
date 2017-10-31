@@ -1,0 +1,173 @@
+#nav-items {
+  margin-bottom: 40px;
+}
+
+#search-bar-container {
+  padding: 0 !important;
+}
+
+#pagination {
+  text-align: center;
+}
+
+.book-title {
+  margin-top: 12px;
+  font-size: 29px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.book-image {
+  width: 100%;
+  height: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.book-author {
+  font-size: 12px;
+}
+
+.book-author > span {
+  color: #00ab6b;
+}
+
+.book-image-wrapper {
+  text-align: center;
+}
+
+.card-text {
+  color: rgba(0, 0, 0, .6);
+}
+
+#dj-message {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.user img {
+  display: inline;
+  height: 48px;
+  width: 48px;
+  border-radius: 4px;
+}
+
+.user-name a:first-child {
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.user-name span {
+  font-size: 18px;
+}
+
+.user p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+}
+
+.follow-btn {
+  background-color: #f4f6f8 !important;
+  float: right;
+}
+
+.book-actions {
+  margin-bottom: 15px;
+}
+
+.book-actions i {
+  font-size: 24px;
+  color: #02b875;
+  cursor: pointer;
+}
+
+.book-actions a {
+  float: right;
+  text-decoration: none;
+  margin-top: 4px;
+  color: rgba(0, 0, 0, .6);
+}
+
+.book-actions a:hover {
+  color: rgba(0, 0, 0, .8);
+}
+
+.book-actions span {
+  vertical-align: text-bottom;
+  font-size: 16px;
+  color: rgba(0, 0, 0, .55);
+}
+
+.bookmark, .unbookmark {
+  float: right;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
+.indication-icon {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.indication-icon > i {
+  font-size: 120px;
+  color: #888;
+}
+
+.indication-icon > h3 {
+  font-size: 24px;
+  color: #888;
+}
+
+.emotion {
+  display: inline-block;
+  font-size: 30px;
+}
+
+.pos, .neg, .neutral {
+  vertical-align: sub;
+}
+
+.pos {
+  color: green;
+}
+
+.neg {
+  color: red;
+}
+
+.neutral {
+  color: cornflowerblue;
+}
+
+.options {
+  float: right;
+}
+
+.options .btn{
+  margin: 22px;
+  font-size: 22px;
+  color: grey;
+  border: none;
+}
+
+
+.options ul {
+  top: 70px !important;
+  left: inherit !important;
+}
+
+.read-more {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.read-more:hover {
+  color: rgba(0, 0, 0, 0.45);
+  text-decoration: none;
+}
